@@ -856,7 +856,14 @@ const KEYS = [
     "zebra"
 ]
 
-export function Keyboard() {
+type keybosrdProps = {
+    disabled?: boolean
+    activeLetters: string[]
+    inactiveLetters: string[]
+    addGuessedLetter: (letter: string) => void
+}
+
+export function Keyboard({  activeLetters, inactiveLetters, addGuessedLetter , disabled= false,}: keybosrdProps) {
     const [data, setData] = useState<string[]>([])
 
     useEffect(() => {
@@ -883,10 +890,14 @@ export function Keyboard() {
             }}
         >
             {data.map(key => {
+                const isActive = activeLetters.includes(key)
+                const isInactive = inactiveLetters.includes(key)
                 return (
                     <button
-
-                        className={`${style.btn} `}
+                        onClick={() => addGuessedLetter(key)}
+                        className={`${style.btn} ${isActive ? style.active : ""} 
+                        ${isInactive ? style.inactive : ""}`}
+                        disabled={isInactive || isActive || disabled}
                         key={key}
                     >
                         {key}
