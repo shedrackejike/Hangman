@@ -859,31 +859,40 @@ const KEYS = [
 export function Keyboard() {
     const [data, setData] = useState<string[]>([])
 
-    useEffect(()=>{
+    useEffect(() => {
         const uniqueAlpha = new Map<string, string>()
-        for(const x of KEYS){
-            if(!uniqueAlpha.get(x[0])){
+        for (const x of KEYS) {
+            if (!uniqueAlpha.get(x[0])) {
                 uniqueAlpha.set(x[0], x[0].toUpperCase())
             }
         }
         const all: string[] = []
-        uniqueAlpha.forEach(e=> {
+        uniqueAlpha.forEach(e => {
             all.push(e)
         })
         setData(all)
-      
-       
-    },[])
+
+
+    }, [])
     return (
         <div
-         style={{
-             display: "grid",
-              gridTemplateColumns: "repeat(auto-fit, minmax(75px,1fr)",
-             gap: ".5rem" }}
-             >
-                {data.map(key =>{
-                    return <button className={style.btn} key={key}>{key}</button>
-                })}
+            style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(auto-fit, minmax(75px,1fr)",
+                gap: ".5rem"
+            }}
+        >
+            {data.map(key => {
+                return (
+                    <button
+
+                        className={`${style.btn} `}
+                        key={key}
+                    >
+                        {key}
+                    </button>
+                )
+            })}
 
         </div>
     )
